@@ -12,7 +12,10 @@ var h = require('./helpers');
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://fresh-feesh.firebaseio.com/');
 
+var Catalyst = require('react-catalyst');
+
 var App = React.createClass({
+  mixins: [Catalyst.LinkedStateMixin],
   getInitialState: function(){
     return {
       fishes: {},
@@ -63,7 +66,7 @@ var App = React.createClass({
           </ul>
         </div>
         <Order fishes={this.state.fishes} order={this.state.order} />
-        <Inventory addFish={this.addFish} loadSamples={this.loadSamples} />
+        <Inventory fishes={this.state.fishes} linkState={this.linkState} addFish={this.addFish} loadSamples={this.loadSamples} />
       </div>
     );
   }
@@ -191,10 +194,27 @@ var Order = React.createClass({
 });
 
 var Inventory = React.createClass({
+  renderInventory: function(key){
+    var linkState = this.props.linkState;
+    return (
+      <div className="fish-edit" key={key}>
+        <input type="text" valueLink={linkState('fishes.'+ key +'.name')} />
+        <input type="text" valueLink={linkState('fishes.'+ key +'.price')} />
+        <select valueLink={linkState('fishes.'+ key +'.status')}>
+          <option value="available">Fresh!</option>
+          <option value="unavailable">Sold Out!</option>
+        </select>
+        <textarea type="text" valueLink={linkState('fishes.'+ key +'.desc')}></textarea>
+        <input type="text" valueLink={linkState('fishes.'+ key +'.image')} />
+        <button>Remove Fish</button>
+      </div>
+    );
+  },
   render: function(){
     return (
       <div>
         <h2>Inventory</h2>
+        {Object.keys(this.props.fishes).map(this.renderInventory)}
         <AddFishForm {...this.props} />
         <button onClick={this.props.loadSamples}>Load Sample Fish</button>
       </div>

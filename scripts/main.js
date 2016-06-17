@@ -15,6 +15,9 @@ var base = Rebase.createClass('https://fresh-feesh.firebaseio.com/');
 
 var Catalyst = require('react-catalyst');
 
+import NotFound from './components/NotFound';
+import StorePicker from './components/StorePicker';
+
 var App = React.createClass({
   mixins: [Catalyst.LinkedStateMixin],
   getInitialState: function(){
@@ -250,33 +253,6 @@ var Inventory = React.createClass({
     addFish: React.PropTypes.func.isRequired,
     removeFish: React.PropTypes.func.isRequired,
     loadSamples: React.PropTypes.func.isRequired
-  }
-});
-
-var StorePicker = React.createClass({
-  mixins: [History],
-  goToStore: function(event){
-    event.preventDefault();
-    var storeId = this.refs.storeId.value;
-    this.history.pushState(null, '/store/' + storeId);
-  },
-  render: function(){
-    return (
-      <form className="store-selector" onSubmit={this.goToStore}>
-        {/* Comments inside jsx need to be in curley braces */}
-        <h2>Please enter a store</h2>
-        <input type="text" ref="storeId" defaultValue={h.getFunName()} required />
-        <input type="submit" />
-      </form>
-    );
-  }
-});
-
-var NotFound = React.createClass({
-  render: function(){
-    return (
-      <h1>Not Found!</h1>
-    );
   }
 });
 

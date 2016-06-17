@@ -3,6 +3,11 @@ import ReactDOM from 'react-dom';
 import { Router, Route } from 'react-router';
 import { createHistory } from 'history';
 
+import NotFound from './components/NotFound';
+import StorePicker from './components/StorePicker';
+
+import AddFishForm from './components/AddFishForm';
+
 var CSSTransitionGroup = require('react-addons-css-transition-group');
 
 var h = require('./helpers');
@@ -11,9 +16,6 @@ var Rebase = require('re-base');
 var base = Rebase.createClass('https://fresh-feesh.firebaseio.com/');
 
 var Catalyst = require('react-catalyst');
-
-import NotFound from './components/NotFound';
-import StorePicker from './components/StorePicker';
 
 var App = React.createClass({
   mixins: [Catalyst.LinkedStateMixin],
@@ -104,38 +106,6 @@ var Fish = React.createClass({
         <p>{details.desc}</p>
         <button disabled={!isAvailable} onClick={this.onButtonClick}>{buttonText}</button>
       </li>
-    );
-  }
-});
-
-var AddFishForm = React.createClass({
-  createFish: function(event){
-    event.preventDefault();
-
-    var fish = {
-      name: this.refs.name.value,
-      price: this.refs.price.value,
-      status: this.refs.status.value,
-      desc: this.refs.desc.value,
-      image: this.refs.image.value,
-    };
-
-    this.props.addFish(fish);
-    this.refs.fishForm.reset();
-  },
-  render: function(){
-    return (
-      <form className="fish-edit" ref="fishForm" onSubmit={this.createFish}>
-        <input type="text" ref="name" placeholder="Fish Name"/>
-        <input type="text" ref="price" placeholder="Fish Price" />
-        <select ref="status">
-          <option value="available">Fresh!</option>
-          <option value="unavailable">Sold Out!</option>
-        </select>
-        <textarea type="text" ref="desc" placeholder="Desc"></textarea>
-        <input type="text" ref="image" placeholder="URL to Image" />
-        <button type="submit">+ Add Item </button>
-      </form>
     );
   }
 });

@@ -1,12 +1,9 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var CSSTransitionGroup = require('react-addons-css-transition-group');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route } from 'react-router';
+import { createHistory } from 'history';
 
-var ReactRouter = require('react-router');
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var History = ReactRouter.History;
-var createBrowserHistory = require('history/lib/createBrowserHistory');
+var CSSTransitionGroup = require('react-addons-css-transition-group');
 
 var h = require('./helpers');
 
@@ -257,7 +254,7 @@ var Inventory = React.createClass({
 });
 
 var routes = (
-  <Router history={createBrowserHistory()}>
+  <Router history={createHistory()}>
     <Route path="/" component={StorePicker} />
     <Route path="/store/:storeId" component={App} />
     <Route path="*" component={NotFound} />

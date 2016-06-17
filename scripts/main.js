@@ -6,7 +6,9 @@ import { createHistory } from 'history';
 import NotFound from './components/NotFound';
 import StorePicker from './components/StorePicker';
 
+import Header from './components/Header';
 import Inventory from './components/Inventory';
+import Fish from './components/Fish';
 
 var CSSTransitionGroup = require('react-addons-css-transition-group');
 
@@ -83,51 +85,6 @@ var App = React.createClass({
           addFish={this.addFish} loadSamples={this.loadSamples} removeFish={this.removeFish } />
       </div>
     );
-  }
-});
-
-var Fish = React.createClass({
-  onButtonClick: function(){
-    var key = this.props.index;
-    this.props.addToOrder(key);
-  },
-  render: function(){
-    var details = this.props.details;
-    var isAvailable = (details.status === 'available' ? true : false);
-    var buttonText = (isAvailable ? 'Add To Order' : 'Sold Out')
-
-    return (
-      <li className="menu-fish">
-        <img src={details.image} alt={details.name} />
-        <h3 className="fish-name">
-          {details.name}
-          <span className="price">{h.formatPrice(details.price)}</span>
-        </h3>
-        <p>{details.desc}</p>
-        <button disabled={!isAvailable} onClick={this.onButtonClick}>{buttonText}</button>
-      </li>
-    );
-  }
-});
-
-var Header = React.createClass({
-  render: function(){
-    return (
-      <header className="top">
-        <h1>
-          Catch
-          <span className="ofThe">
-            <span className="of">of</span>
-            <span className="the">the</span>
-          </span>
-          Day
-        </h1>
-        <h3 className="tagline"><span>{this.props.tagline}</span></h3>
-      </header>
-    );
-  },
-  propTypes: {
-    tagline: React.PropTypes.string.isRequired
   }
 });
 

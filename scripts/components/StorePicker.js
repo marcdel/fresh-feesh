@@ -2,7 +2,9 @@ import React from 'react';
 import { History } from 'react-router';
 import h from '../helpers';
 import reactMixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
+@autobind
 export default class StorePicker extends React.Component {
   goToStore(event){
     event.preventDefault();

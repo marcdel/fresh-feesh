@@ -1,7 +1,7 @@
 import React from 'react';
 
-var Header = React.createClass({
-  render: function(){
+export default class Header extends React.Component {
+  render(){
     return (
       <header className="top">
         <h1>
@@ -15,10 +15,9 @@ var Header = React.createClass({
         <h3 className="tagline"><span>{this.props.tagline}</span></h3>
       </header>
     );
-  },
-  propTypes: {
-    tagline: React.PropTypes.string.isRequired
   }
-});
+}
 
-export default Header;
+Header.propTypes = {
+  tagline: React.PropTypes.string.isRequired
+};

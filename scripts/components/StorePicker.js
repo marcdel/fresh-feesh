@@ -1,15 +1,16 @@
 import React from 'react';
 import { History } from 'react-router';
 import h from '../helpers';
+import reactMixin from 'react-mixin';
 
-var StorePicker = React.createClass({
-  mixins: [History],
-  goToStore: function(event){
+export default class StorePicker extends React.Component {
+  goToStore(event){
     event.preventDefault();
     var storeId = this.refs.storeId.value;
     this.history.pushState(null, '/store/' + storeId);
-  },
-  render: function(){
+  }
+
+  render(){
     return (
       <form className="store-selector" onSubmit={this.goToStore}>
         {/* Comments inside jsx need to be in curley braces */}
@@ -19,6 +20,6 @@ var StorePicker = React.createClass({
       </form>
     );
   }
-});
+}
 
-export default StorePicker;
+reactMixin.onClass(StorePicker, History);
